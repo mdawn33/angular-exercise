@@ -1,0 +1,26 @@
+<h1>
+    {{ title() }}
+</h1>    
+
+
+<input
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        placeholder="Search..."
+      />
+
+
+<div class="mt-10 flex gap-x-6">
+    @for (r of filteredRecipes(); track r.id) {
+        <button type="button" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" 
+            (click)="selectRecipe(r)">{{r.name}}</button>
+    }
+  
+    @if (recipe().isFavorite) {
+        <span class="favorite-badge">
+            <fa-icon [icon]="faStar" />
+        </span>
+    }
+</div>
+
+<app-recipe-detail [selectedRecipe]="recipe()"></app-recipe-detail>

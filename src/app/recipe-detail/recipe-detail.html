@@ -1,0 +1,35 @@
+<div class="card">
+    <div>
+        <img [src]="selectedRecipe().imgUrl" [alt]="selectedRecipe().name + ' image'" width="1000">
+    </div>
+
+    <div class="mt-10">
+        <h2 style="display: block;">Servings</h2>
+        
+        <button type="button" class="mr-6 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" (click)="decrementServings()">decrease</button>
+        <span>{{ servings() }}</span>
+        <button type="button" class="ml-6 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" (click)="incrementServings()">increase</button>
+    </div>
+
+    <div class="mt-10">
+        <p class="card-title">
+        {{selectedRecipe().name}}
+        </p>
+        <p class="card-subtitle">
+        {{selectedRecipe().description}}
+        </p>
+    </div>
+
+    <div class="info-table">
+        <div>
+            <h2>Ingredients</h2>
+        </div>
+
+        <ul>
+            @for (ingredient of adjustedIngredients(); track ingredient.name) {
+                <li>{{ ingredient.name }} - {{ ingredient.quantity }} {{ingredient.unit}}</li>               
+            }
+        </ul>
+                
+    </div>
+</div>
