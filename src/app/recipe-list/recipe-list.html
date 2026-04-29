@@ -9,18 +9,18 @@
         placeholder="Search..."
       />
 
+<div>
+    <a [routerLink]="['/add']" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add recipe</a>
+</div>
 
 <div class="mt-10 flex gap-x-6">
     @for (r of filteredRecipes(); track r.id) {
-        <button type="button" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" 
-            (click)="selectRecipe(r)">{{r.name}}</button>
+        <a [routerLink]="['/recipes', r.id]" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">{{r.name}}</a>
     }
   
-    @if (recipe().isFavorite) {
+    @if (selectedRecipe().isFavorite) {
         <span class="favorite-badge">
             <fa-icon [icon]="faStar" />
         </span>
     }
 </div>
-
-<app-recipe-detail [selectedRecipe]="recipe()"></app-recipe-detail>

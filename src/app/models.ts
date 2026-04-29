@@ -5,10 +5,10 @@ export interface Ingredient {
   }
 
   export interface RecipeModel {
-    id: number;
+    id: string;
     name: string;
     description: string;
-    imgUrl: string;
+    imgUrl?: string;
     isFavorite: boolean;
     ingredients: Ingredient[];
   }

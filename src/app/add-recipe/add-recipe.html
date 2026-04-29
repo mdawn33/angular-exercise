@@ -1,0 +1,27 @@
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <label for="name">Name</label>
+    <input id="name" formControlName="name" />
+
+    <label for="description">Description</label>
+    <input id="description" formControlName="description" />
+
+    <label for="isFavorite">Is Favorite?</label>
+    <input type="checkbox" id="isFavorite" formControlName="isFavorite" />
+
+    <label for="imgUrl">Image url</label>
+    <input id="imgUrl" formControlName="imgUrl" />
+
+    <div formArrayName="ingredients">
+        @for (ingredient of ingredients.controls; track $index) {
+            <div [formGroupName]="$index">
+                <input formControlName="name" placeholder="Name"/>
+                <input formControlName="quantity" placeholder="Quantity"/>
+                <input formControlName="unit" placeholder="Unit"/>
+                <button type="button" (click)="removeIngredient($index)">Remove</button>
+            </div>
+        }
+    </div>
+
+    <button type="button" (click)="addIngredient()">Add ingredient</button>
+    <button type="submit" [disabled]="recipeForm.invalid">Save</button>
+</form>

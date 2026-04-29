@@ -1,15 +1,20 @@
-import { Component, computed, input, signal } from '@angular/core';
-import { RecipeModel } from '../models';
+import { Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Recipe } from '../recipe';
 
 @Component({
   selector: 'app-recipe-detail',
-  imports: [],
   templateUrl: './recipe-detail.html',
   styleUrl: './recipe-detail.css',
 })
 export class RecipeDetail {
+  private readonly route = inject(ActivatedRoute);
+  private readonly recipeService = inject(Recipe);
 
-  readonly selectedRecipe = input.required<RecipeModel>();
+
+  private readonly selectedRecipeId: string | null = this.route.snapshot.paramMap.get('id'); 
+
+  protected readonly selectedRecipe = this.recipeService.getRecipeById(this.selectedRecipeId ?? undefined) ?? this.recipeService.recipes()[0];
 
   protected readonly servings = signal<number>(1);
 
@@ -24,7 +29,7 @@ export class RecipeDetail {
     this.servings.update(s => s - 1);
   }
 
-  protected readonly adjustedIngredients = computed(() => this.selectedRecipe().ingredients.map(i => ({
+  protected readonly adjustedIngredients = computed(() => this.selectedRecipe?.ingredients.map(i => ({
     name: i.name,
     quantity: i.quantity * this.servings(),
     unit: i.unit
